@@ -1,0 +1,857 @@
+/* ============================================
+   Lulu's Delish — design tokens
+   Coastal Swahili breakfast house, Mombasa.
+   Grounded in kanga dye, coral-stone walls,
+   turmeric and chili — not stock "African"
+   or stock "restaurant" defaults.
+   ============================================ */
+
+:root {
+  /* color */
+  --ink:        #2E2A24;
+  --teal:       #173C42;
+  --teal-dark:  #0F2A2F;
+  --cream:      #F5EDE0;
+  --cream-soft: #EDE2D0;
+  --amber:      #C77B2E;
+  --chili:      #8B3A2B;
+  --line:       #D9CDB6;
+
+  /* type */
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-body:    "Work Sans", system-ui, sans-serif;
+
+  /* scale */
+  --step--1: clamp(0.83rem, 0.8rem + 0.15vw, 0.9rem);
+  --step-0:  clamp(1rem, 0.96rem + 0.2vw, 1.08rem);
+  --step-1:  clamp(1.2rem, 1.12rem + 0.4vw, 1.4rem);
+  --step-2:  clamp(1.5rem, 1.32rem + 0.9vw, 1.95rem);
+  --step-3:  clamp(1.95rem, 1.6rem + 1.75vw, 2.85rem);
+  --step-4:  clamp(2.6rem, 2rem + 3vw, 4.1rem);
+
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.75rem;
+  --space-4: 3rem;
+  --space-5: 5rem;
+
+  --content-max: 72rem;
+  --measure: 62ch;
+
+  --radius: 3px;
+}
+
+/* ---- reset ---- */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.08;
+  margin: 0 0 var(--space-2);
+  color: var(--teal-dark);
+}
+
+h1 {
+  font-size: var(--step-4);
+  font-weight: 800;
+}
+
+h2 {
+  font-size: var(--step-3);
+}
+
+h3 {
+  font-size: var(--step-2);
+}
+
+h4 {
+  font-size: var(--step-1);
+  font-weight: 600;
+}
+
+p {
+  margin: 0 0 var(--space-2);
+  max-width: var(--measure);
+}
+
+a {
+  color: var(--chili);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}
+
+a:hover {
+  color: var(--amber);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---- layout helpers ---- */
+
+.wrap {
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: var(--space-3);
+}
+
+/* ============================================
+   Scroll reveal
+   Elements opt in with [data-reveal]; the
+   "delay" variant lands slightly after its
+   partner so paired blocks don't animate in
+   perfect unison. JS adds .is-visible when the
+   element enters the viewport (main.js), and
+   under prefers-reduced-motion everything is
+   shown immediately instead of animated.
+   ============================================ */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+[data-reveal="delay"] {
+  transition-delay: 0.15s;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ============================================
+   Header
+   ============================================ */
+
+.site-header {
+  background: var(--cream);
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.site-header__inner {
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: var(--space-2) var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--step-1);
+  color: var(--teal-dark);
+  text-decoration: none;
+  margin-right: auto;
+}
+
+
+
+.site-nav {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.site-nav a {
+  color: var(--ink);
+  text-decoration: none;
+  font-size: var(--step--1);
+  font-weight: 500;
+  padding: var(--space-1) 0;
+  border-bottom: 2px solid transparent;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.site-nav a:hover,
+.site-nav a.is-active {
+  color: var(--chili);
+  border-bottom-color: var(--chili);
+}
+
+.site-header__hours {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  font-size: var(--step--1);
+  color: var(--teal-dark);
+  white-space: nowrap;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--amber);
+  flex-shrink: 0;
+}
+
+/* mobile nav toggle */
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+  padding: var(--space-1);
+}
+
+.nav-toggle span {
+  width: 22px;
+  height: 2px;
+  background: var(--teal-dark);
+}
+
+@media (max-width: 46rem) {
+  .site-nav {
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--cream);
+    border-bottom: 1px solid var(--line);
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .site-nav a {
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav-toggle-input:checked ~ .site-header .site-nav,
+  .nav-toggle-input:checked ~ header .site-nav {
+    display: flex;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .site-header__hours {
+    display: none;
+  }
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+
+.site-footer {
+  background: var(--teal-dark);
+  color: var(--cream-soft);
+  margin-top: var(--space-5);
+}
+
+.site-footer a {
+  color: var(--cream-soft);
+}
+
+.site-footer a:hover {
+  color: var(--amber);
+}
+
+.site-footer__inner {
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: var(--space-4) var(--space-3);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.site-footer__block p {
+  margin: 0 0 0.35em;
+  font-size: var(--step--1);
+}
+
+.wordmark--footer {
+  font-size: var(--step-1);
+  color: var(--cream);
+  margin-bottom: var(--space-1);
+}
+
+.footer-heading {
+  font-weight: 600;
+  color: var(--cream);
+  margin-bottom: var(--space-1) !important;
+}
+
+.site-footer__fine {
+  text-align: center;
+  font-size: var(--step--1);
+  color: #8FA3A6;
+  padding: var(--space-2) 0 var(--space-3);
+  margin: 0;
+}
+.footer-map {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    border-radius: var(--radius);
+    border: 1px solid rgba(245, 237, 224, 0.2);
+}
+
+.footer-map iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+}
+.footer-location {
+    margin: 0.6em 0 0;
+    font-size: var(--step--1);
+    color: var(--cream-soft);
+}
+
+@media (max-width: 40rem) {
+  .site-footer__inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================
+   Buttons / links
+   ============================================ */
+
+.btn {
+  display: inline-block;
+  padding: 0.75em 1.4em;
+  border-radius: var(--radius);
+  font-size: var(--step--1);
+  font-weight: 600;
+  text-decoration: none;
+  border: 1.5px solid transparent;
+  transition: transform 0.2s ease, box-shadow 0.2s ease,
+              background-color 0.2s ease, color 0.2s ease,
+              border-color 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(15, 42, 47, 0.18);
+}
+
+.btn--primary {
+  background: var(--chili);
+  color: var(--cream);
+}
+
+.btn--ghost {
+  border-color: var(--teal-dark);
+  color: var(--teal-dark);
+}
+
+.btn--ghost:hover {
+  border-color: var(--chili);
+  color: var(--chili);
+  background: transparent;
+}
+
+.text-link {
+  font-size: var(--step--1);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* ============================================
+   Hero
+   ============================================ */
+
+.hero__carousel {
+  position: relative;
+  width: 100%;
+  height: clamp(26rem, 72vh, 44rem);
+  overflow: hidden;
+  background: var(--teal-dark);
+}
+
+.hero__slides {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  inset: 0;
+}
+
+.hero__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.hero__slide.is-active {
+  opacity: 1;
+}
+
+.hero__slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Slow zoom on whichever slide is currently showing. Restarts
+   automatically each time .is-active moves to a new slide, since
+   the class is removed/re-added rather than toggled in place. */
+@keyframes heroKenBurns {
+  from { transform: scale(1); }
+  to   { transform: scale(1.08); }
+}
+
+.hero__slide.is-active img {
+  animation: heroKenBurns 7s ease-out forwards;
+}
+
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 42, 47, 0.1) 0%,
+    rgba(15, 42, 47, 0.35) 55%,
+    rgba(15, 42, 47, 0.85) 100%
+  );
+  pointer-events: none;
+}
+
+.hero__overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: var(--space-4);
+  z-index: 2;
+}
+
+.hero__period {
+  margin: 0 0 0.5em;
+  color: var(--amber);
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero__overlay h1 {
+  color: var(--cream);
+}
+
+.hero__overlay .hero__lede {
+  color: var(--cream-soft);
+  max-width: 46ch;
+}
+
+.hero__actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-top: var(--space-3);
+}
+
+.hero .btn--ghost {
+  border-color: var(--cream);
+  color: var(--cream);
+}
+
+.hero .btn--ghost:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+.hero__dots {
+  position: absolute;
+  bottom: var(--space-2);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 2;
+}
+
+.hero__dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--cream);
+  background: transparent;
+  cursor: pointer;
+}
+
+.hero__dot.is-active {
+  background: var(--amber);
+  border-color: var(--amber);
+}
+
+@media (max-width: 46rem) {
+  .hero__carousel {
+    height: auto;
+    min-height: 34rem;
+  }
+
+  .hero__overlay {
+    bottom: var(--space-3);
+  }
+}
+
+/* ============================================
+   Today's dishes
+   ============================================ */
+
+.dishes {
+  padding-block: var(--space-4);
+}
+
+.dishes h2 {
+  margin-bottom: var(--space-3);
+}
+
+.dishes__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+}
+
+/* Wrapper clips the hover-zoomed image so it can't spill over
+   the card's own border-radius or into the text below it. */
+.dish-card__media {
+  overflow: hidden;
+  border-radius: var(--radius);
+  border-bottom: 3px solid var(--amber);
+  margin-bottom: var(--space-1);
+}
+
+.dish-card__media img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.dish-card:hover .dish-card__media img {
+  transform: scale(1.06);
+}
+
+.dish-card h3 {
+  font-size: var(--step-1);
+  margin-bottom: 0.25em;
+}
+
+.dish-card p {
+  font-size: var(--step--1);
+  margin: 0;
+}
+
+/* Stagger the four cards as they reveal on scroll. */
+.dish-card:nth-child(1) { transition-delay: 0s; }
+.dish-card:nth-child(2) { transition-delay: 0.1s; }
+.dish-card:nth-child(3) { transition-delay: 0.2s; }
+.dish-card:nth-child(4) { transition-delay: 0.3s; }
+
+@media (max-width: 60rem) {
+  .dishes__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 30rem) {
+  .dishes__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================
+   Gallery preview
+   ============================================ */
+
+.gallery-preview {
+  padding-block: var(--space-4);
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.section-head h2 {
+  margin: 0;
+}
+
+.gallery-preview__strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2);
+}
+
+.gallery-preview__strip img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius);
+  transition: transform 0.5s ease;
+}
+
+.gallery-preview__strip img:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 40rem) {
+  .gallery-preview__strip {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================
+   Reviews
+   ============================================ */
+
+.reviews {
+  padding-block: var(--space-5);
+  background: var(--teal-dark);
+  color: var(--cream);
+}
+
+.reviews__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.reviews__eyebrow {
+  margin: 0 0 0.6rem;
+  color: var(--amber);
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.reviews h2 {
+  margin: 0;
+  color: var(--cream);
+}
+
+/* Rating */
+
+.reviews__rating {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.reviews__rating strong {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 600;
+  color: var(--cream);
+}
+
+.reviews__rating span {
+  color: var(--amber);
+  font-size: 1.1rem;
+}
+
+.reviews__rating small {
+  color: var(--cream-soft);
+  font-size: var(--step--1);
+}
+
+/* Main review layout */
+
+.reviews__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(18rem, 0.65fr);
+  gap: var(--space-5);
+  align-items: start;
+}
+
+/* Featured review */
+
+.review-featured {
+  position: relative;
+  margin: 0;
+  padding-left: 4rem;
+  max-width: 52rem;
+}
+
+.review-featured__mark {
+  position: absolute;
+  top: -1.2rem;
+  left: 0;
+  color: var(--amber);
+  font-family: Georgia, serif;
+  font-size: 6rem;
+  line-height: 1;
+}
+
+.review-featured p {
+  margin: 0 0 var(--space-2);
+  color: var(--cream);
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.2vw, 3rem);
+  line-height: 1.1;
+  font-weight: 400;
+}
+
+.review-featured cite {
+  font-style: normal;
+  font-size: var(--step--1);
+  color: var(--cream-soft);
+  opacity: 0.75;
+}
+
+/* Supporting reviews */
+
+.reviews__list {
+  border-top: 1px solid rgba(245, 237, 224, 0.25);
+}
+
+.review-card {
+  margin: 0;
+  padding: var(--space-2) 0;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid rgba(245, 237, 224, 0.25);
+  border-radius: 0;
+}
+
+.review-card p {
+  margin: 0 0 0.75rem;
+  color: var(--cream-soft);
+  font-family: var(--font-body);
+  font-size: var(--step--1);
+  line-height: 1.65;
+}
+
+.review-card cite {
+  font-style: normal;
+  font-size: 0.75rem;
+  color: var(--cream-soft);
+  opacity: 0.6;
+}
+
+/* Reviews — responsive */
+
+@media (max-width: 50rem) {
+  .reviews__header {
+    align-items: flex-start;
+    flex-direction: column;
+    margin-bottom: var(--space-3);
+  }
+
+  .reviews__layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .review-featured {
+    padding-left: 3rem;
+  }
+
+  .review-featured p {
+    font-size: clamp(1.7rem, 6vw, 2.5rem);
+  }
+}
+
+@media (max-width: 30rem) {
+  .reviews {
+    padding-block: var(--space-4);
+  }
+
+  .review-featured {
+    padding-left: 2.5rem;
+  }
+
+  .review-featured__mark {
+    font-size: 5rem;
+  }
+}
+
+/* ============================================
+   Visit CTA
+   ============================================ */
+
+.visit-cta {
+  padding-block: var(--space-5);
+}
+
+.visit-cta__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.visit-cta__inner h2 {
+  margin-bottom: 0.2em;
+}
+
+.visit-cta__inner p {
+  margin: 0;
+}
+
+.visit-cta .hero__actions {
+  margin-top: 0;
+}

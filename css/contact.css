@@ -1,0 +1,683 @@
+/* ============================================
+   Lulu's Delish — Contact
+   Coastal Swahili breakfast house, Mombasa.
+   ============================================ */
+
+:root {
+    --ink:        #2E2A24;
+    --teal:       #173C42;
+    --teal-dark:  #0F2A2F;
+    --cream:      #F5EDE0;
+    --cream-soft: #EDE2D0;
+    --amber:      #C77B2E;
+    --chili:      #8B3A2B;
+    --line:       #D9CDB6;
+
+    --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+    --font-body:    "Work Sans", system-ui, sans-serif;
+
+    --step--1: clamp(0.83rem, 0.8rem + 0.15vw, 0.9rem);
+    --step-0:  clamp(1rem, 0.96rem + 0.2vw, 1.08rem);
+    --step-1:  clamp(1.2rem, 1.12rem + 0.4vw, 1.4rem);
+    --step-2:  clamp(1.5rem, 1.32rem + 0.9vw, 1.95rem);
+    --step-3:  clamp(1.95rem, 1.6rem + 1.75vw, 2.85rem);
+    --step-4:  clamp(2.6rem, 2rem + 3vw, 4.1rem);
+
+    --space-1: 0.5rem;
+    --space-2: 1rem;
+    --space-3: 1.75rem;
+    --space-4: 3rem;
+    --space-5: 5rem;
+
+    --content-max: 72rem;
+    --measure: 62ch;
+
+    --radius: 3px;
+}
+
+
+/* ============================================
+   Reset
+   ============================================ */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+body {
+    margin: 0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: var(--step-0);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.08;
+    margin: 0 0 var(--space-2);
+    color: var(--teal-dark);
+}
+
+h1 {
+    font-size: var(--step-4);
+    font-weight: 800;
+}
+
+h2 {
+    font-size: var(--step-3);
+}
+
+h3 {
+    font-size: var(--step-2);
+}
+
+p {
+    margin: 0 0 var(--space-2);
+    max-width: var(--measure);
+}
+
+a {
+    color: var(--chili);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.15em;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+:focus-visible {
+    outline: 2px solid var(--amber);
+    outline-offset: 3px;
+}
+
+.wrap {
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding-inline: var(--space-3);
+}
+
+/* ============================================
+   Scroll reveal
+   Elements opt in with [data-reveal]; the
+   "delay" variant lands slightly after its
+   partner so paired image/copy blocks don't
+   animate in perfect unison. JS adds
+   .is-visible on scroll into view (main.js);
+   reduced motion shows everything immediately.
+   ============================================ */
+
+[data-reveal] {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+[data-reveal="delay"] {
+    transition-delay: 0.15s;
+}
+
+[data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+
+.site-header {
+    background: var(--cream);
+    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+
+.site-header__inner {
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding: var(--space-2) var(--space-3);
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.wordmark {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--step-1);
+    color: var(--teal-dark);
+    text-decoration: none;
+    margin-right: auto;
+}
+
+.wordmark:hover {
+    color: var(--teal-dark);
+}
+
+.site-nav {
+    display: flex;
+    gap: var(--space-3);
+}
+
+.site-nav a {
+    color: var(--ink);
+    text-decoration: none;
+    font-size: var(--step--1);
+    font-weight: 500;
+    padding: var(--space-1) 0;
+    border-bottom: 2px solid transparent;
+    transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.site-nav a:hover,
+.site-nav a.is-active {
+    color: var(--chili);
+    border-bottom-color: var(--chili);
+}
+
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+    padding: var(--space-1);
+}
+
+.nav-toggle span {
+    width: 22px;
+    height: 2px;
+    background: var(--teal-dark);
+}
+
+
+/* ============================================
+   CONTACT INTRODUCTION
+   ============================================ */
+
+.contact-hero {
+    padding-block: var(--space-3);
+}
+
+.contact-hero__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-4);
+    align-items: center;
+}
+
+.contact-hero__content {
+    max-width: 38rem;
+}
+
+.contact-hero__eyebrow {
+    margin-bottom: var(--space-1);
+    color: var(--chili);
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.contact-hero h1 {
+    margin-bottom: var(--space-2);
+}
+
+.contact-hero__lede {
+    max-width: 50ch;
+    margin-bottom: 0;
+}
+
+.contact-hero__image {
+    aspect-ratio: 5 / 3;
+    overflow: hidden;
+    border-radius: var(--radius);
+}
+
+.contact-hero__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.contact-hero__image:hover img {
+    transform: scale(1.05);
+}
+
+
+/* ============================================
+   CONTACT DETAILS
+   ============================================ */
+
+.contact-details {
+    padding-block: var(--space-5);
+}
+
+.contact-details__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+}
+
+.contact-card {
+    padding: var(--space-4);
+    border: 1px solid var(--line);
+}
+
+.contact-card__label {
+    color: var(--chili);
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-2);
+}
+
+.contact-card h2 {
+    font-size: var(--step-2);
+    margin-bottom: var(--space-2);
+}
+
+.contact-card p:not(.contact-card__label) {
+    margin-bottom: var(--space-3);
+}
+
+
+/* ============================================
+   CONTACT MAP
+   ============================================ */
+
+.contact-card--map {
+    padding: 0;
+    overflow: hidden;
+}
+
+.contact-card__heading {
+    padding: var(--space-3);
+    border-bottom: 1px solid var(--line);
+}
+
+.contact-card__heading h2 {
+    margin-bottom: 0.25em;
+}
+
+.contact-card__heading p {
+    margin: 0;
+    font-size: var(--step--1);
+    color: var(--teal-dark);
+}
+
+.map-frame {
+    width: 100%;
+    aspect-ratio: 16 / 8;
+    min-height: 320px;
+}
+
+.map-frame iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+}
+
+
+/* ============================================
+   VISIT INFORMATION
+   ============================================ */
+
+.contact-visit {
+    padding-block: var(--space-4);
+    border-top: 1px solid var(--line);
+}
+
+.contact-visit__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-5);
+    align-items: stretch;
+}
+
+.contact-visit__left {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: var(--space-3);
+}
+
+.contact-visit__heading h2 {
+    margin-bottom: 0;
+}
+
+.contact-section-eyebrow {
+    margin-bottom: var(--space-1);
+    color: var(--chili);
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.contact-visit__image {
+    min-height: 0;
+    overflow: hidden;
+    border-radius: var(--radius);
+}
+
+.contact-visit__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.contact-visit__image:hover img {
+    transform: scale(1.05);
+}
+
+.contact-visit__information {
+    align-self: center;
+}
+
+.contact-info-row {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: var(--space-3);
+    padding-block: var(--space-3);
+    border-bottom: 1px solid var(--line);
+}
+
+.contact-info-row:first-child {
+    padding-top: 0;
+}
+
+.contact-info-row:last-child {
+    border-bottom: none;
+}
+
+.contact-info-row p {
+    margin: 0 0 0.25em;
+    font-size: var(--step--1);
+}
+
+.contact-info-row p:last-child {
+    margin-bottom: 0;
+}
+
+.contact-info-row__label {
+    color: var(--chili);
+    font-weight: 600;
+}
+
+
+/* ============================================
+   GROUP MEALS
+   ============================================ */
+
+.contact-group {
+    background: var(--teal);
+    color: var(--cream);
+    padding-block: var(--space-5);
+}
+
+.contact-group__inner {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: var(--space-5);
+    align-items: start;
+}
+
+.contact-group h2 {
+    color: var(--cream);
+}
+
+.contact-group .contact-section-eyebrow {
+    color: var(--amber);
+}
+
+.contact-group p {
+    color: var(--cream-soft);
+}
+
+.contact-group .btn {
+    margin-top: var(--space-1);
+}
+
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+.site-footer {
+    background: var(--teal-dark);
+    color: var(--cream-soft);
+    margin-top: var(--space-5);
+}
+
+.site-footer a {
+    color: var(--cream-soft);
+}
+
+.site-footer a:hover {
+    color: var(--amber);
+}
+
+.site-footer__inner {
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding: var(--space-4) var(--space-3);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+}
+
+.site-footer__block p {
+    margin: 0 0 0.35em;
+    font-size: var(--step--1);
+}
+
+.wordmark--footer {
+    font-size: var(--step-1);
+    color: var(--cream);
+    margin-bottom: var(--space-1);
+}
+
+.wordmark--footer:hover {
+    color: var(--cream);
+}
+
+.footer-heading {
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: var(--space-1) !important;
+}
+
+.footer-map {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    border-radius: var(--radius);
+    border: 1px solid rgba(245, 237, 224, 0.2);
+}
+
+.footer-map iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+}
+
+.footer-location {
+    margin: 0.6em 0 0;
+    font-size: var(--step--1);
+    color: var(--cream-soft);
+}
+
+.site-footer__fine {
+    text-align: center;
+    font-size: var(--step--1);
+    color: #8FA3A6;
+    padding: var(--space-2) 0 var(--space-3);
+    margin: 0;
+}
+
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+.btn {
+    display: inline-block;
+    padding: 0.75em 1.4em;
+    border-radius: var(--radius);
+    font-size: var(--step--1);
+    font-weight: 600;
+    text-decoration: none;
+    border: 1.5px solid transparent;
+    transition: transform 0.2s ease, box-shadow 0.2s ease,
+                background-color 0.2s ease, color 0.2s ease,
+                border-color 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(15, 42, 47, 0.18);
+}
+
+.btn--primary {
+    background: var(--chili);
+    color: var(--cream);
+}
+
+.btn--ghost {
+    border-color: var(--teal-dark);
+    color: var(--teal-dark);
+}
+
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 46rem) {
+
+    .site-nav {
+        display: none;
+        flex-direction: column;
+        gap: 0;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--cream);
+        border-bottom: 1px solid var(--line);
+        padding: var(--space-2) var(--space-3);
+    }
+
+    .site-nav a {
+        padding: var(--space-2) 0;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .nav-toggle-input:checked ~ .site-header .site-nav,
+    .nav-toggle-input:checked ~ header .site-nav {
+        display: flex;
+    }
+
+    .nav-toggle {
+        display: flex;
+    }
+}
+
+
+@media (max-width: 50rem) {
+
+    .contact-details__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-visit__grid,
+    .contact-group__inner {
+        grid-template-columns: 1fr;
+        gap: var(--space-3);
+    }
+}
+
+
+@media (max-width: 40rem) {
+
+    .contact-hero {
+        padding-block: var(--space-4);
+    }
+
+    .contact-hero__inner {
+        grid-template-columns: 1fr;
+        gap: var(--space-3);
+    }
+
+    .contact-hero__image {
+        aspect-ratio: 4 / 3;
+        order: 2;
+    }
+
+    .contact-card {
+        padding: var(--space-3);
+    }
+
+    .map-frame {
+        aspect-ratio: 4 / 3;
+        min-height: 280px;
+    }
+
+    .contact-visit {
+        padding-block: var(--space-4);
+    }
+
+    .contact-visit__grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+    }
+
+    .contact-visit__left {
+        gap: var(--space-3);
+    }
+
+    .contact-visit__image {
+        aspect-ratio: 4 / 3;
+    }
+
+    .contact-info-row {
+        grid-template-columns: 1fr;
+        gap: var(--space-1);
+    }
+
+    .site-footer__inner {
+        grid-template-columns: 1fr;
+    }
+}

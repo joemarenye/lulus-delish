@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lulus-delish.netlify.app/sitemap.xml

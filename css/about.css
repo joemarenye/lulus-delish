@@ -1,0 +1,863 @@
+/* ============================================
+   Lulu's Delish — About
+   Coastal Swahili breakfast house, Mombasa.
+   Uses the same design system as index.css.
+   ============================================ */
+
+
+/* ============================================
+   Design Tokens
+   ============================================ */
+
+:root {
+  /* color */
+  --ink:        #2E2A24;
+  --teal:       #173C42;
+  --teal-dark:  #0F2A2F;
+  --cream:      #F5EDE0;
+  --cream-soft: #EDE2D0;
+  --amber:      #C77B2E;
+  --chili:      #8B3A2B;
+  --line:       #D9CDB6;
+
+  /* type */
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-body:    "Work Sans", system-ui, sans-serif;
+
+  /* scale */
+  --step--1: clamp(0.83rem, 0.8rem + 0.15vw, 0.9rem);
+  --step-0:  clamp(1rem, 0.96rem + 0.2vw, 1.08rem);
+  --step-1:  clamp(1.2rem, 1.12rem + 0.4vw, 1.4rem);
+  --step-2:  clamp(1.5rem, 1.32rem + 0.9vw, 1.95rem);
+  --step-3:  clamp(1.95rem, 1.6rem + 1.75vw, 2.85rem);
+  --step-4:  clamp(2.6rem, 2rem + 3vw, 4.1rem);
+
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.75rem;
+  --space-4: 3rem;
+  --space-5: 5rem;
+
+  --content-max: 72rem;
+  --measure: 62ch;
+
+  --radius: 3px;
+}
+
+
+/* ============================================
+   Reset & Base
+   ============================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.08;
+  margin: 0 0 var(--space-2);
+  color: var(--teal-dark);
+}
+
+h1 {
+  font-size: var(--step-4);
+  font-weight: 800;
+}
+
+h2 {
+  font-size: var(--step-3);
+}
+
+h3 {
+  font-size: var(--step-2);
+}
+
+h4 {
+  font-size: var(--step-1);
+  font-weight: 600;
+}
+
+p {
+  margin: 0 0 var(--space-2);
+  max-width: var(--measure);
+}
+
+a {
+  color: var(--chili);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}
+
+a:hover {
+  color: var(--amber);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+
+/* ============================================
+   Layout Helpers
+   ============================================ */
+
+.wrap {
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: var(--space-3);
+}
+
+
+/* ============================================
+   Scroll Reveal
+   Elements opt in with [data-reveal].
+   JS adds .is-visible when the element enters
+   the viewport. Reduced motion shows everything
+   immediately.
+   ============================================ */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+[data-reveal="delay"] {
+  transition-delay: 0.15s;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+
+/* ============================================
+   Header
+   ============================================ */
+
+.site-header {
+  background: var(--cream);
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.site-header__inner {
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: var(--space-2) var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--step-1);
+  color: var(--teal-dark);
+  text-decoration: none;
+  margin-right: auto;
+}
+
+.wordmark:hover {
+  color: var(--teal-dark);
+}
+
+.site-nav {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.site-nav a {
+  color: var(--ink);
+  text-decoration: none;
+  font-size: var(--step--1);
+  font-weight: 500;
+  padding: var(--space-1) 0;
+  border-bottom: 2px solid transparent;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.site-nav a:hover,
+.site-nav a.is-active {
+  color: var(--chili);
+  border-bottom-color: var(--chili);
+}
+
+
+/* ============================================
+   Mobile Navigation
+   ============================================ */
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+  padding: var(--space-1);
+}
+
+.nav-toggle span {
+  width: 22px;
+  height: 2px;
+  background: var(--teal-dark);
+}
+
+
+/* ============================================
+   About Hero
+   ============================================ */
+
+.about-hero {
+  background: var(--teal);
+  color: var(--cream);
+  padding-block: var(--space-4);
+}
+
+.about-hero__inner {
+  min-height: 54vh;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-4);
+  align-items: center;
+}
+
+.about-hero__content {
+  max-width: 38rem;
+}
+
+.about-hero__eyebrow {
+  margin: 0 0 var(--space-1);
+  color: var(--amber);
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.about-hero h1 {
+  color: var(--cream);
+  max-width: 12ch;
+  margin-bottom: var(--space-2);
+}
+
+.about-hero__lede {
+  max-width: 52ch;
+  color: var(--cream-soft);
+  margin: 0;
+}
+
+.about-hero__image {
+  aspect-ratio: 5 / 3;
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+
+.about-hero__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.about-hero__image:hover img {
+  transform: scale(1.05);
+}
+
+
+/* ============================================
+   Section Eyebrow
+   ============================================ */
+
+.section-eyebrow {
+  margin: 0 0 var(--space-1);
+  color: var(--chili);
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+
+/* ============================================
+   Story — What We Serve
+   ============================================ */
+
+.about-story {
+  padding-block: var(--space-5);
+}
+
+.about-story__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: var(--space-5);
+  align-items: center;
+}
+
+.about-story__image {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border-bottom: 3px solid var(--amber);
+}
+
+.about-story__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.about-story__image:hover img {
+  transform: scale(1.05);
+}
+
+.about-story__copy {
+  max-width: var(--measure);
+}
+
+.about-story__copy h2 {
+  margin-bottom: var(--space-3);
+}
+
+.about-story__copy p {
+  margin-bottom: var(--space-3);
+}
+
+.about-story__copy .text-link {
+  display: inline-block;
+  margin-top: var(--space-1);
+}
+
+
+/* ============================================
+   Hospitality — The Experience
+   ============================================ */
+
+.about-hospitality {
+  background: var(--cream-soft);
+  padding-block: var(--space-5);
+}
+
+.about-hospitality__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: var(--space-5);
+  align-items: center;
+}
+
+.about-hospitality__image {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border-bottom: 3px solid var(--amber);
+  background: var(--line);
+}
+
+.about-hospitality__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.about-hospitality__image:hover img {
+  transform: scale(1.05);
+}
+
+.about-hospitality__content {
+  max-width: var(--measure);
+}
+
+.about-hospitality__content h2 {
+  margin-bottom: var(--space-3);
+}
+
+.about-hospitality__content p {
+  margin-bottom: var(--space-2);
+}
+
+
+/* ============================================
+   Reviews
+   ============================================ */
+
+.about-reviews {
+  padding-block: var(--space-5);
+  background: var(--teal-dark);
+  color: var(--cream);
+  overflow: hidden;
+}
+
+.about-reviews__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(18rem, 0.65fr);
+  gap: var(--space-5);
+  align-items: center;
+}
+
+.about-reviews__content {
+  min-width: 0;
+}
+
+.about-reviews .section-eyebrow {
+  color: var(--amber);
+}
+
+.about-reviews h2 {
+  margin-bottom: var(--space-3);
+  color: var(--cream);
+}
+
+
+/* ============================================
+   Reviews — Scrolling Carousel
+   ============================================ */
+
+.reviews-carousel {
+  position: relative;
+  height: 24rem;
+  overflow: hidden;
+}
+
+.reviews-carousel__viewport {
+  height: 100%;
+  overflow: hidden;
+}
+
+.reviews-carousel__track {
+  display: flex;
+  flex-direction: column;
+  animation: reviews-scroll 65s linear infinite;
+}
+
+/* Pause the carousel while the user is reading. */
+
+.reviews-carousel:hover .reviews-carousel__track,
+.reviews-carousel:focus-within .reviews-carousel__track {
+  animation-play-state: paused;
+}
+
+.review {
+  flex: 0 0 auto;
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid rgba(245, 237, 224, 0.25);
+}
+
+.review__text {
+  max-width: 55ch;
+  margin: 0 0 var(--space-1);
+  color: var(--cream);
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  line-height: 1.35;
+}
+
+.review__author {
+  margin: 0;
+  color: var(--cream-soft);
+  font-size: var(--step--1);
+  font-weight: 600;
+}
+
+@keyframes reviews-scroll {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+.about-reviews__image {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+
+.about-reviews__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.about-reviews__image:hover img {
+  transform: scale(1.05);
+}
+
+
+/* ============================================
+   Visit CTA
+   ============================================ */
+
+.about-visit {
+  padding-block: var(--space-5);
+}
+
+.about-visit__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.about-visit__inner h2 {
+  margin-bottom: 0.2em;
+}
+
+.about-visit__inner p {
+  margin: 0;
+}
+
+.about-visit__actions {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+
+/* ============================================
+   Buttons
+   ============================================ */
+
+.btn {
+  display: inline-block;
+  padding: 0.75em 1.4em;
+  border-radius: var(--radius);
+  font-size: var(--step--1);
+  font-weight: 600;
+  text-decoration: none;
+  border: 1.5px solid transparent;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(15, 42, 47, 0.18);
+}
+
+.btn--primary {
+  background: var(--chili);
+  color: var(--cream);
+}
+
+.btn--primary:hover {
+  color: var(--cream);
+}
+
+.btn--ghost {
+  border-color: var(--teal-dark);
+  color: var(--teal-dark);
+}
+
+.btn--ghost:hover {
+  border-color: var(--chili);
+  color: var(--chili);
+  background: transparent;
+}
+
+
+/* ============================================
+   Text Links
+   ============================================ */
+
+.text-link {
+  font-size: var(--step--1);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+
+/* ============================================
+   Footer
+   ============================================ */
+
+.site-footer {
+  background: var(--teal-dark);
+  color: var(--cream-soft);
+  margin-top: var(--space-5);
+}
+
+.site-footer a {
+  color: var(--cream-soft);
+}
+
+.site-footer a:hover {
+  color: var(--amber);
+}
+
+.site-footer__inner {
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: var(--space-4) var(--space-3);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.site-footer__block p {
+  margin: 0 0 0.35em;
+  font-size: var(--step--1);
+}
+
+.wordmark--footer {
+  font-size: var(--step-1);
+  color: var(--cream);
+  margin-bottom: var(--space-1);
+}
+
+.wordmark--footer:hover {
+  color: var(--cream);
+}
+
+.footer-heading {
+  font-weight: 600;
+  color: var(--cream);
+  margin-bottom: var(--space-1) !important;
+}
+
+.site-footer__fine {
+  text-align: center;
+  font-size: var(--step--1);
+  color: #8FA3A6;
+  padding: var(--space-2) 0 var(--space-3);
+  margin: 0;
+}
+
+
+/* ============================================
+   Footer — Map
+   ============================================ */
+
+.footer-map {
+  width: 100%;
+  height: 150px;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid rgba(245, 237, 224, 0.2);
+}
+
+.footer-map iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.footer-location {
+  margin: 0.6em 0 0;
+  font-size: var(--step--1);
+  color: var(--cream-soft);
+}
+
+
+/* ============================================
+   Mobile Navigation
+   ============================================ */
+
+@media (max-width: 46rem) {
+  .site-nav {
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--cream);
+    border-bottom: 1px solid var(--line);
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .site-nav a {
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav-toggle-input:checked ~ .site-header .site-nav,
+  .nav-toggle-input:checked ~ header .site-nav {
+    display: flex;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+}
+
+
+/* ============================================
+   Responsive — Tablet
+   ============================================ */
+
+@media (max-width: 60rem) {
+  .about-story__grid {
+    grid-template-columns: 1fr 1.25fr;
+    gap: var(--space-4);
+  }
+
+  .about-reviews__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .about-reviews__image {
+    max-width: 42rem;
+  }
+}
+
+@media (max-width: 50rem) {
+  .about-hospitality__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .about-visit__inner {
+    align-items: flex-start;
+  }
+}
+
+
+/* ============================================
+   Responsive — Mobile
+   ============================================ */
+
+@media (max-width: 40rem) {
+  .about-hero {
+    padding-block: var(--space-4);
+  }
+
+  .about-hero__inner {
+    min-height: auto;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  .about-hero__image {
+    aspect-ratio: 4 / 3;
+    order: 2;
+  }
+
+  .about-story,
+  .about-hospitality,
+  .about-reviews,
+  .about-visit {
+    padding-block: var(--space-4);
+  }
+
+  .about-story__grid,
+  .about-hospitality__grid,
+  .about-reviews__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  .about-story__copy,
+  .about-hospitality__content {
+    max-width: none;
+  }
+
+  .about-reviews__grid {
+    gap: var(--space-4);
+  }
+
+  .reviews-carousel {
+    height: 22rem;
+  }
+
+  .about-reviews__image {
+    aspect-ratio: 4 / 3;
+  }
+
+  .about-visit__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .about-visit__actions {
+    width: 100%;
+  }
+
+  .site-footer__inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ============================================
+   Responsive — Small Mobile
+   ============================================ */
+
+@media (max-width: 30rem) {
+  .about-visit__actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .about-visit__actions .btn {
+    text-align: center;
+  }
+
+  .reviews-carousel {
+    height: 20rem;
+  }
+}

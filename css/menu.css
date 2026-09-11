@@ -1,0 +1,751 @@
+/* ============================================
+   Lulu's Delish — Menu
+   Coastal Swahili breakfast house, Mombasa.
+   Uses the shared design system from index.css.
+   ============================================ */
+
+
+/* ============================================
+   Design tokens
+   ============================================ */
+
+:root {
+  /* color */
+  --ink:        #2E2A24;
+  --teal:       #173C42;
+  --teal-dark:  #0F2A2F;
+  --cream:      #F5EDE0;
+  --cream-soft: #EDE2D0;
+  --amber:      #C77B2E;
+  --chili:      #8B3A2B;
+  --line:       #D9CDB6;
+
+  /* type */
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-body:    "Work Sans", system-ui, sans-serif;
+
+  /* scale */
+  --step--1: clamp(0.83rem, 0.8rem + 0.15vw, 0.9rem);
+  --step-0:  clamp(1rem, 0.96rem + 0.2vw, 1.08rem);
+  --step-1:  clamp(1.2rem, 1.12rem + 0.4vw, 1.4rem);
+  --step-2:  clamp(1.5rem, 1.32rem + 0.9vw, 1.95rem);
+  --step-3:  clamp(1.95rem, 1.6rem + 1.75vw, 2.85rem);
+  --step-4:  clamp(2.6rem, 2rem + 3vw, 4.1rem);
+
+  /* spacing */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.75rem;
+  --space-4: 3rem;
+  --space-5: 5rem;
+
+  /* layout */
+  --content-max: 72rem;
+  --measure: 62ch;
+
+  --radius: 3px;
+}
+
+
+/* ============================================
+   Reset
+   ============================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0 0 var(--space-2);
+  color: var(--teal-dark);
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.08;
+}
+
+h1 {
+  font-size: var(--step-4);
+  font-weight: 800;
+}
+
+h2 {
+  font-size: var(--step-3);
+}
+
+h3 {
+  font-size: var(--step-2);
+}
+
+h4 {
+  font-size: var(--step-1);
+  font-weight: 600;
+}
+
+p {
+  margin: 0 0 var(--space-2);
+  max-width: var(--measure);
+}
+
+a {
+  color: var(--chili);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}
+
+a:hover {
+  color: var(--amber);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+
+/* ============================================
+   Layout helpers
+   ============================================ */
+
+.wrap {
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: var(--space-3);
+}
+
+
+/* ============================================
+   Scroll reveal
+   Elements opt in with [data-reveal].
+   JS adds .is-visible when the element enters
+   the viewport. Reduced motion shows everything
+   immediately instead of animating.
+   ============================================ */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+
+/* ============================================
+   Header
+   ============================================ */
+
+.site-header {
+  background: var(--cream);
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.site-header__inner {
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: var(--space-2) var(--space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--step-1);
+  color: var(--teal-dark);
+  text-decoration: none;
+  margin-right: auto;
+}
+
+
+
+.site-nav {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.site-nav a {
+  color: var(--ink);
+  text-decoration: none;
+  font-size: var(--step--1);
+  font-weight: 500;
+  padding: var(--space-1) 0;
+  border-bottom: 2px solid transparent;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.site-nav a:hover,
+.site-nav a.is-active {
+  color: var(--chili);
+  border-bottom-color: var(--chili);
+}
+
+.site-header__hours {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  font-size: var(--step--1);
+  color: var(--teal-dark);
+  white-space: nowrap;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--amber);
+  flex-shrink: 0;
+}
+
+/* mobile nav toggle */
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+  padding: var(--space-1);
+}
+
+.nav-toggle span {
+  width: 22px;
+  height: 2px;
+  background: var(--teal-dark);
+}
+
+@media (max-width: 46rem) {
+  .site-nav {
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--cream);
+    border-bottom: 1px solid var(--line);
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .site-nav a {
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav-toggle-input:checked ~ .site-header .site-nav,
+  .nav-toggle-input:checked ~ header .site-nav {
+    display: flex;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .site-header__hours {
+    display: none;
+  }
+}
+
+
+/* ============================================
+   Footer
+   ============================================ */
+
+.site-footer {
+  margin-top: var(--space-5);
+
+  background: var(--teal-dark);
+  color: var(--cream-soft);
+}
+
+.site-footer a {
+  color: var(--cream-soft);
+}
+
+.site-footer a:hover {
+  color: var(--amber);
+}
+
+.site-footer__inner {
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: var(--space-4) var(--space-3);
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.site-footer__block p {
+  margin: 0 0 0.35em;
+  font-size: var(--step--1);
+}
+
+.wordmark--footer {
+  margin-bottom: var(--space-1);
+
+  color: var(--cream);
+  font-size: var(--step-1);
+}
+
+.footer-heading {
+  margin-bottom: var(--space-1) !important;
+
+  color: var(--cream);
+  font-weight: 600;
+}
+
+.site-footer__fine {
+  margin: 0;
+  padding: var(--space-2) 0 var(--space-3);
+
+  color: #8FA3A6;
+  font-size: var(--step--1);
+  text-align: center;
+}
+
+@media (max-width: 40rem) {
+  .site-footer__inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ============================================
+   Buttons / links
+   ============================================ */
+
+.btn {
+  display: inline-block;
+
+  padding: 0.75em 1.4em;
+
+  border: 1.5px solid transparent;
+  border-radius: var(--radius);
+
+  font-size: var(--step--1);
+  font-weight: 600;
+  text-decoration: none;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(15, 42, 47, 0.18);
+}
+
+.btn--primary {
+  background: var(--chili);
+  color: var(--cream);
+}
+
+.btn--ghost {
+  border-color: var(--teal-dark);
+  color: var(--teal-dark);
+}
+
+.btn--ghost:hover {
+  border-color: var(--chili);
+  color: var(--chili);
+  background: transparent;
+}
+
+.text-link {
+  font-size: var(--step--1);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+
+/* ============================================
+   Menu introduction
+   ============================================ */
+
+.menu-intro {
+  padding-block: var(--space-4) var(--space-3);
+}
+
+.menu-intro h1 {
+  margin-bottom: var(--space-2);
+}
+
+
+/* ============================================
+   Menu category navigation
+   ============================================ */
+
+.menu-nav {
+  position: sticky;
+  top: 60px;
+  z-index: 10;
+
+  background: var(--cream-soft);
+  border-block: 1px solid var(--line);
+}
+
+.menu-nav__inner {
+  display: flex;
+  gap: var(--space-3);
+
+  overflow-x: auto;
+
+  padding-block: var(--space-1);
+
+  scrollbar-width: none;
+}
+
+.menu-nav__inner::-webkit-scrollbar {
+  display: none;
+}
+
+.menu-nav a {
+  flex-shrink: 0;
+
+  padding: var(--space-1) 0;
+
+  color: var(--teal-dark);
+  font-size: var(--step--1);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+
+  border-bottom: 2px solid transparent;
+
+  transition:
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.menu-nav a:hover,
+.menu-nav a.is-active {
+  color: var(--chili);
+}
+
+.menu-nav a.is-active {
+  border-bottom-color: var(--chili);
+}
+
+
+/* ============================================
+   Menu sections
+   ============================================ */
+
+.menu-sections {
+  display: flex;
+
+  overflow-x: auto;
+
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.menu-sections::-webkit-scrollbar {
+  display: none;
+}
+
+.menu-section {
+  flex: 0 0 100%;
+
+  padding-block: var(--space-4);
+
+  scroll-snap-align: start;
+}
+
+.menu-section h2 {
+  margin-bottom: var(--space-3);
+}
+
+
+/* ============================================
+   Category banner image
+   Sits above each section heading.
+   ============================================ */
+
+.menu-section__media {
+  overflow: hidden;
+
+  margin-bottom: var(--space-3);
+
+  border-radius: var(--radius);
+  border-bottom: 3px solid var(--amber);
+}
+
+.menu-section__media img {
+  width: 100%;
+  aspect-ratio: 21 / 9;
+  object-fit: cover;
+
+  transition: transform 0.5s ease;
+}
+
+.menu-section__media:hover img {
+  transform: scale(1.05);
+}
+
+@media (max-width: 40rem) {
+  .menu-section__media img {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+
+/* ============================================
+   Menu item list
+   ============================================ */
+
+.menu-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+@media (min-width: 40rem) {
+  .menu-list {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: var(--space-4);
+  }
+}
+
+
+/* ============================================
+   Menu item
+   ============================================ */
+
+.menu-item {
+  margin: 0 -0.4em;
+  padding: 0.3em 0.4em;
+
+  border-radius: var(--radius);
+
+  transition: background-color 0.15s ease;
+}
+
+@media (hover: hover) {
+  .menu-item:hover {
+    background: var(--cream-soft);
+  }
+}
+
+
+/* ============================================
+   Menu item row
+   ============================================ */
+
+.menu-item__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+
+  gap: var(--space-2);
+
+  padding-bottom: 0.2em;
+
+  border-bottom: 1px dotted var(--line);
+}
+
+.menu-item h3 {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5em;
+
+  margin: 0;
+
+  font-size: var(--step-1);
+  font-weight: 600;
+}
+
+
+/* ============================================
+   Portion labels
+   ============================================ */
+
+.menu-item__portion {
+  padding: 0.05em 0.6em;
+
+  background: var(--cream-soft);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+
+  color: var(--teal-dark);
+  font-family: var(--font-body);
+  font-size: var(--step--1);
+  font-weight: 600;
+}
+
+
+/* ============================================
+   Menu prices
+   ============================================ */
+
+.menu-item__price {
+  flex-shrink: 0;
+
+  color: var(--chili);
+  font-family: var(--font-display);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+
+/* ============================================
+   Menu item description
+   ============================================ */
+
+.menu-item p {
+  margin: 0.4em 0 0;
+
+  font-size: var(--step--1);
+}
+
+
+/* ============================================
+   Menu call-to-action
+   ============================================ */
+
+.menu-callout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  align-items: center;
+
+  gap: var(--space-4);
+
+  margin: var(--space-2) 0 var(--space-5);
+  padding: var(--space-3);
+
+  background: var(--teal);
+  border-radius: var(--radius);
+
+  color: var(--cream);
+}
+
+.menu-callout h3 {
+  margin-bottom: 0.4em;
+
+  color: var(--cream);
+  font-size: var(--step-1);
+}
+
+.menu-callout p {
+  margin: 0;
+  color: var(--cream-soft);
+}
+
+.menu-callout a {
+  color: var(--cream);
+}
+
+.menu-callout a:hover {
+  color: var(--amber);
+}
+
+
+/* ============================================
+   Callout questions
+   ============================================ */
+
+.menu-callout__questions {
+  padding-left: var(--space-4);
+
+  border-left: 1px solid rgba(245, 237, 224, 0.25);
+}
+
+@media (max-width: 40rem) {
+  .menu-callout {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  .menu-callout__questions {
+    padding-top: var(--space-3);
+    padding-left: 0;
+
+    border-top: 1px solid rgba(245, 237, 224, 0.25);
+    border-left: none;
+  }
+}
+
+
+/* ============================================
+   Responsive adjustments
+   ============================================ */
+
+@media (max-width: 46rem) {
+  .menu-nav {
+    top: 57px;
+  }
+}
+
+@media (max-width: 30rem) {
+  .menu-intro {
+    padding-block: var(--space-3);
+  }
+
+  .menu-section {
+    padding-block: var(--space-3);
+  }
+
+  .menu-callout {
+    margin-bottom: var(--space-4);
+  }
+}
